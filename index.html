@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Natan | Portfolio</title>
+    <title>Natan | Cyber Profile</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --blue: #00d4ff;
             --green: #00ff88;
-            --bg-dark: #020b14;
-            --card-bg: rgba(0, 20, 40, 0.8);
+            --bg-dark: #01080e;
+            --card-bg: rgba(2, 15, 30, 0.85);
+            --glitch-speed: 3s;
         }
 
         body, html {
@@ -23,7 +24,7 @@
             overflow-x: hidden;
         }
 
-        /* Canvas Background */
+        /* Tło Matrix */
         #bgCanvas {
             position: fixed;
             top: 0;
@@ -33,143 +34,175 @@
 
         .container {
             max-width: 900px;
-            margin: 50px auto;
+            margin: 80px auto;
             padding: 20px;
+            position: relative;
         }
 
-        /* Profile Section */
+        /* Szklana karta profilu */
         .glass-card {
             background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--blue);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
-            margin-bottom: 30px;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(0, 212, 255, 0.1);
+            margin-bottom: 40px;
             text-align: center;
         }
 
-        .profile-header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .profile-pic {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 4px solid var(--green);
-            box-shadow: 0 0 15px var(--green);
-            font-size: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(0, 255, 136, 0.1);
-        }
-
-        h1 {
+        /* Efekt Glitch na imieniu */
+        .glitch {
             font-family: 'Orbitron', sans-serif;
-            margin: 10px 0;
+            font-size: 3.5em;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
             background: linear-gradient(90deg, var(--blue), var(--green));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 3em;
+            text-transform: uppercase;
+            margin: 10px 0;
         }
 
-        /* Status & Info Grid */
+        .profile-pic {
+            width: 130px;
+            height: 130px;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            border: 4px solid var(--green);
+            background: rgba(0, 255, 136, 0.1);
+            margin: -90px auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 60px;
+            box-shadow: 0 0 25px var(--green);
+            animation: morphing 8s infinite ease-in-out;
+        }
+
+        @keyframes morphing {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
+            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        }
+
+        /* Grid informacji */
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
         }
 
         .info-box {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            border-radius: 12px;
-            border-left: 3px solid var(--blue);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             transition: 0.3s;
             text-align: left;
         }
 
         .info-box:hover {
-            background: rgba(0, 212, 255, 0.1);
-            transform: scale(1.02);
+            border-color: var(--blue);
+            background: rgba(0, 212, 255, 0.05);
+            transform: translateY(-5px);
         }
 
-        /* Sections Titles */
-        h2 {
-            font-family: 'Orbitron', sans-serif;
+        .box-label {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
             color: var(--green);
-            border-bottom: 2px solid var(--green);
-            display: inline-block;
-            margin-bottom: 20px;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
         }
 
-        /* Works Section */
+        /* Sekcja prac */
         .works-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
         }
 
         .work-card {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 18px;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: 0.4s;
         }
 
         .work-card:hover {
             border-color: var(--green);
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
-            transform: translateY(-10px);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+            transform: scale(1.03);
         }
 
         .work-img {
-            height: 150px;
-            background: linear-gradient(45deg, #001a33, #00331a);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 40px;
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            filter: grayscale(40%) brightness(80%);
+            transition: 0.4s;
         }
 
-        .work-info {
-            padding: 15px;
+        .work-card:hover .work-img {
+            filter: grayscale(0%) brightness(100%);
+        }
+
+        .work-desc { padding: 20px; }
+        .work-desc h4 { margin: 0 0 10px; color: var(--blue); font-family: 'Orbitron'; }
+
+        /* Paski Skillów */
+        .skill-bar {
+            background: #111;
+            height: 8px;
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+            border-radius: 4px;
+            box-shadow: 0 0 10px currentColor;
         }
 
         /* Countdown */
-        .timer {
+        .timer-val {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5em;
+            font-size: 1.8em;
             color: var(--blue);
-            text-shadow: 0 0 10px var(--blue);
+            text-shadow: 0 0 15px var(--blue);
         }
 
         /* Discord Button */
         .btn-discord {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 30px;
-            background: linear-gradient(90deg, #5865F2, var(--blue));
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 30px;
+            padding: 15px 35px;
+            background: linear-gradient(45deg, #5865F2, var(--blue));
             color: white;
             text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
+            border-radius: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: 0.3s;
-            cursor: pointer;
             border: none;
+            cursor: pointer;
         }
 
         .btn-discord:hover {
-            box-shadow: 0 0 20px #5865F2;
-            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(88, 101, 242, 0.6);
+            transform: translateY(-3px);
         }
+
+        h2 { font-family: 'Orbitron'; color: var(--green); text-transform: uppercase; margin-top: 0; }
     </style>
 </head>
 <body>
@@ -178,66 +211,69 @@
 
 <div class="container">
     <div class="glass-card">
-        <div class="profile-header">
-            <div class="profile-pic">🌊</div>
-            <h1>NATAN</h1>
-            <p style="font-size: 1.2em; letter-spacing: 2px;">DANIEL | DEVELOPER & ATHLETE</p>
-        </div>
+        <div class="profile-pic">🌊</div>
+        <h1 class="glitch" id="display-name">Natan</h1>
+        <p style="color: var(--blue); letter-spacing: 5px; margin-bottom: 30px;">DANIEL // CYBER-ATHLETE</p>
 
         <div class="info-grid">
             <div class="info-box">
-                <i class="fas fa-ghost" style="color: var(--blue);"></i> <b>Mood:</b> Chill & Focus
+                <span class="box-label" id="label-mood">Mood</span>
+                <span id="val-mood">✨ Chill & Relax</span>
             </div>
             <div class="info-box">
-                <i class="fas fa-location-arrow" style="color: var(--green);"></i> <b>Status:</b> Building things
+                <span class="box-label" id="label-status">Status</span>
+                <span><i class="fas fa-circle" style="color: var(--green); font-size: 10px;"></i> Online</span>
             </div>
-            <div class="info-box">
-                <i class="fas fa-birthday-cake" style="color: var(--blue);"></i> <b>Level Up za:</b><br>
-                <span id="timer" class="timer">-- : -- : --</span>
+            <div class="info-box" style="grid-column: span 1;">
+                <span class="box-label" id="label-levelup">Level Up za:</span>
+                <div id="timer" class="timer-val">00d 00h 00m</div>
             </div>
         </div>
-        
+
         <button class="btn-discord" onclick="window.open('https://discord.gg/BxBzuuGrj2', '_blank')">
-            <i class="fab fa-discord"></i> DOŁĄCZ DO DISCORDA
+            <i class="fab fa-discord"></i> <span id="btn-text">Dołącz do społeczności</span>
         </button>
     </div>
 
-    <div class="glass-card">
-        <h2><i class="fas fa-user"></i> Czym się zajmuję?</h2>
+    <div class="glass-card" style="text-align: left;">
+        <h2><i class="fas fa-terminal"></i> System.Info</h2>
         <div class="info-grid">
             <div class="info-box">
-                <h3>🏊‍♂️ Sport</h3>
-                <p>Pasjonat pływania i siatkówki. Sport uczy mnie dyscypliny i dążenia do celu.</p>
+                <h3>Zajęcia</h3>
+                <p>Pasjonat sportów wodnych 🏊‍♂️ oraz siatkówki 🏐. W świecie cyfrowym zajmuję się rozwojem serwerów i botów Discord.</p>
             </div>
             <div class="info-box">
-                <h3>💻 Technology</h3>
-                <p>Tworzę projekty na Discorda, bawię się kodem i projektuję nowoczesne interfejsy.</p>
+                <h3>Umiejętności</h3>
+                <p>Discord JS / Boty</p>
+                <div class="skill-bar"><div class="skill-fill" style="width: 85%; background: var(--blue); color: var(--blue);"></div></div>
+                <p>Siatkówka / Pływanie</p>
+                <div class="skill-bar"><div class="skill-fill" style="width: 95%; background: var(--green); color: var(--green);"></div></div>
             </div>
         </div>
     </div>
 
-    <div class="glass-card">
-        <h2><i class="fas fa-code-branch"></i> Moje Prace</h2>
+    <div class="glass-card" style="text-align: left;">
+        <h2><i class="fas fa-layer-group"></i> Repository.Works</h2>
         <div class="works-grid">
             <div class="work-card">
-                <div class="work-img">🤖</div>
-                <div class="work-info">
-                    <h4>Discord Bot</h4>
-                    <p>Zaawansowany bot moderacyjny i rozrywkowy dla społeczności.</p>
+                <img src="https://imgur.com/kznq8kk" class="work-img">
+                <div class="work-desc">
+                    <h4>Custom Bots</h4>
+                    <p>Tworzenie botów zintegrowanych z API dla społeczności Roleplay.</p>
                 </div>
             </div>
             <div class="work-card">
-                <div class="work-img">🎨</div>
-                <div class="work-info">
-                    <h4>UI Design</h4>
-                    <p>Projektowanie minimalistycznych i ciemnych motywów graficznych.</p>
+                <img src="https://imgur.com/dydFGPc" class="work-img">
+                <div class="work-desc">
+                    <h4>Server Design</h4>
+                    <p>Projektowanie struktur i estetyki serwerów Discord od zera.</p>
                 </div>
             </div>
             <div class="work-card">
-                <div class="work-img">🎮</div>
-                <div class="work-info">
-                    <h4>Serwer Społeczności</h4>
-                    <p>Zarządzanie i budowanie aktywnych grup na Discordzie.</p>
+                <img src="https://imgur.com/FdCB5ON" class="work-img">
+                <div class="work-desc">
+                    <h4>Management</h4>
+                    <p>Zarządzanie grupami i moderacja oparta na autorskich systemach.</p>
                 </div>
             </div>
         </div>
@@ -245,68 +281,79 @@
 </div>
 
 <script>
-    // --- MATRIX BACKGROUND EFFECT ---
+    // --- KONFIGURACJA MATRIXA ---
     const canvas = document.getElementById('bgCanvas');
     const ctx = canvas.getContext('2d');
-
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const nums = '0123456789';
-    const alphabet = latin + nums;
-
+    const alphabet = '01ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     const fontSize = 16;
     const columns = canvas.width / fontSize;
-
-    const rainDrops = [];
-
-    for( let x = 0; x < columns; x++ ) {
-        rainDrops[x] = 1;
-    }
+    const rainDrops = Array.from({ length: columns }).fill(1);
 
     const draw = () => {
-        ctx.fillStyle = 'rgba(2, 11, 20, 0.05)';
+        ctx.fillStyle = 'rgba(1, 8, 14, 0.1)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-
         ctx.font = fontSize + 'px Orbitron';
 
-        for(let i = 0; i < rainDrops.length; i++) {
+        for (let i = 0; i < rainDrops.length; i++) {
             const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-            
-            // Alternating colors blue and green
-            ctx.fillStyle = i % 2 === 0 ? '#00d4ff' : '#00ff88';
-            
+            ctx.fillStyle = i % 3 === 0 ? '#00ff88' : '#00d4ff'; // Mix kolorów
             ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
 
-            if(rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975){
+            if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
                 rainDrops[i] = 0;
             }
             rainDrops[i]++;
         }
     };
-
     setInterval(draw, 30);
 
-    // --- COUNTDOWN TIMER ---
-    const targetDate = new Date("April 13, 2026 00:00:00").getTime();
+    // --- TŁUMACZENIE I JĘZYK ---
+    const translations = {
+        pl: {
+            name: "Natan",
+            mood: "✨ Chill i relaks",
+            label_mood: "Nastrój",
+            label_status: "Status",
+            label_levelup: "Urodziny za:",
+            btn: "Dołącz do Discorda"
+        },
+        en: {
+            name: "Nathan",
+            mood: "✨ Chill & Relax",
+            label_mood: "Mood",
+            label_status: "Status",
+            label_levelup: "Birthday in:",
+            btn: "Join Discord Community"
+        }
+    };
 
+    const lang = navigator.language.startsWith('pl') ? 'pl' : 'en';
+    const t = translations[lang];
+
+    document.getElementById('display-name').innerText = t.name;
+    document.getElementById('val-mood').innerText = t.mood;
+    document.getElementById('label-mood').innerText = t.label_mood;
+    document.getElementById('label-status').innerText = t.label_status;
+    document.getElementById('label-levelup').innerText = t.label_levelup;
+    document.getElementById('btn-text').innerText = t.btn;
+
+    // --- LICZNIK CZASU ---
+    const target = new Date("April 13, 2026 00:00:00").getTime();
     function updateTimer() {
         const now = new Date().getTime();
-        const diff = targetDate - now;
-
+        const diff = target - now;
         const d = Math.floor(diff / (1000 * 60 * 60 * 24));
         const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const s = Math.floor((diff % (1000 * 60)) / 1000);
-
         document.getElementById("timer").innerText = `${d}d ${h}h ${m}m ${s}s`;
     }
-
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    // Window Resize fix
     window.addEventListener('resize', () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
