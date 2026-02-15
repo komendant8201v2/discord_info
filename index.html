@@ -3,154 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nathan's Profile</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Natan's Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-bg: #0f172a;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --accent-color: #38bdf8;
-            --text-color: #f8fafc;
+            --bg: #050505;
+            --card-bg: rgba(20, 20, 20, 0.8);
+            --accent: #00d4ff;
+            --text: #ffffff;
+            --secondary-text: #b3b3b3;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: radial-gradient(circle at top right, #1e293b, #0f172a);
-            color: var(--text-color);
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(0, 212, 255, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(255, 0, 255, 0.1) 0px, transparent 50%);
+            color: var(--text);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            overflow: hidden;
         }
 
-        .card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
+        .container {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
+            border-radius: 24px;
             padding: 40px;
-            width: 350px;
+            width: 400px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            animation: fadeIn 1s ease-out;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .profile-img {
-            width: 100px;
-            height: 100px;
-            background: var(--accent-color);
-            border-radius: 50%;
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 35% 65% 70% 30% / 30% 30% 70% 70%;
+            background: linear-gradient(45deg, var(--accent), #7000ff);
             margin: 0 auto 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 40px;
+            font-size: 50px;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
         }
 
-        h1 { margin: 10px 0; font-size: 24px; color: var(--accent-color); }
-        p { margin: 5px 0; font-size: 14px; opacity: 0.8; }
+        h1 { margin: 10px 0 5px; font-size: 28px; letter-spacing: -1px; }
+        .nickname { color: var(--secondary-text); font-size: 16px; margin-bottom: 25px; }
 
-        .info-section {
-            margin-top: 25px;
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
             text-align: left;
         }
 
-        .info-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 10px 15px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
+        .box {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .countdown {
-            font-weight: 600;
-            color: #fbbf24;
-            margin-top: 10px;
+        .box-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 5px;
             display: block;
         }
 
-        .socials {
-            margin-top: 20px;
+        .full-width { grid-column: span 2; }
+
+        .timer-text {
             font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(to right, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .status-dot {
+            height: 10px;
+            width: 10px;
+            background-color: #23a55a;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+            box-shadow: 0 0 10px #23a55a;
         }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <div class="profile-img">🌊</div>
-    <h1 id="name-label">Nathan (Daniel)</h1>
-    <p id="mood-label">✨ Mood: Chilling</p>
+<div class="container">
+    <div class="profile-pic">🌊</div>
+    <h1 id="main-name">Natan</h1>
+    <div class="nickname" id="sub-name">(Daniel)</div>
 
-    <div class="info-section">
-        <div class="info-item">
-            <span id="hobby-title">Hobby:</span>
-            <span>🏊‍♂️ & 🏐</span>
+    <div class="grid">
+        <div class="box">
+            <span class="box-title" id="t-mood">Mood</span>
+            <span id="v-mood">✨ Chill & Relax</span>
         </div>
-        <div class="info-item">
-            <span id="animals-title">Love Animals:</span>
-            <span>🐾 Yes!</span>
+        <div class="box">
+            <span class="box-title" id="t-status">Status</span>
+            <span><span class="status-dot"></span> Online</span>
         </div>
-        <div class="info-item" style="flex-direction: column;">
-            <span id="levelup-title">Level Up:</span>
-            <span class="countdown" id="timer">--d --h --m --s</span>
+        <div class="box full-width">
+            <span class="box-title" id="t-hobbies">Hobbies</span>
+            <span id="v-hobbies">🏊‍♂️ Swimming • 🏐 Volleyball</span>
+        </div>
+        <div class="box">
+            <span class="box-title" id="t-animals">Animals</span>
+            <span id="v-animals">🐾 Love them!</span>
+        </div>
+        <div class="box">
+            <span class="box-title" id="t-gear">Gear</span>
+            <span>🎧 Headset ON</span>
+        </div>
+        <div class="box full-width" style="text-align: center;">
+            <span class="box-title" id="t-levelup">Level Up Countdown</span>
+            <div class="timer-text" id="timer">00d 00h 00m 00s</div>
         </div>
     </div>
-
-    <div class="socials">💬 🎮 🎧</div>
 </div>
 
 <script>
-    // System tłumaczeń
     const translations = {
         pl: {
-            mood: "✨ Nastrój: Chill",
-            hobby: "Hobby:",
-            animals: "Kocha zwierzęta:",
-            levelup: "Level Up za:",
-            yes: "Tak!"
+            name: "Natan",
+            mood: "✨ Chill i relaks",
+            hobbies: "🏊‍♂️ Pływanie • 🏐 Siatkówka",
+            animals: "🐾 Kocham zwierzaki!",
+            t_mood: "Nastrój",
+            t_hobbies: "Zainteresowania",
+            t_animals: "Zwierzęta",
+            t_gear: "Sprzęt",
+            t_levelup: "Urodziny za:"
         },
         en: {
-            mood: "✨ Mood: Chilling",
-            hobby: "Hobby:",
-            animals: "Love Animals:",
-            levelup: "Level Up in:",
-            yes: "Yes!"
+            name: "Nathan",
+            mood: "✨ Chill & Relax",
+            hobbies: "🏊‍♂️ Swimming • 🏐 Volleyball",
+            animals: "🐾 Love them!",
+            t_mood: "Mood",
+            t_hobbies: "Hobbies",
+            t_animals: "Animals",
+            t_gear: "Gear",
+            t_levelup: "Level Up in:"
         }
     };
 
-    // Wykrywanie języka przeglądarki
-    const userLang = navigator.language || navigator.userLanguage;
-    const lang = userLang.startsWith('pl') ? 'pl' : 'en';
+    const userLang = navigator.language.startsWith('pl') ? 'pl' : 'en';
+    const t = translations[userLang];
 
-    // Aplikowanie tłumaczeń
-    document.getElementById('mood-label').innerText = translations[lang].mood;
-    document.getElementById('hobby-title').innerText = translations[lang].hobby;
-    document.getElementById('animals-title').innerText = translations[lang].animals;
-    document.getElementById('levelup-title').innerText = translations[lang].levelup;
+    // Aplikowanie tekstów
+    document.getElementById('main-name').innerText = t.name;
+    document.getElementById('v-mood').innerText = t.mood;
+    document.getElementById('v-hobbies').innerText = t.hobbies;
+    document.getElementById('v-animals').innerText = t.animals;
+    document.getElementById('t-mood').innerText = t.t_mood;
+    document.getElementById('t-hobbies').innerText = t.t_hobbies;
+    document.getElementById('t-animals').innerText = t.t_animals;
+    document.getElementById('t-gear').innerText = t.t_gear;
+    document.getElementById('t-levelup').innerText = t.t_levelup;
 
-    // Odliczanie (13 kwietnia 2026)
-    const targetDate = new Date("April 13, 2026 00:00:00").getTime();
+    // Odliczanie do 13 kwietnia 2026
+    const target = new Date("April 13, 2026 00:00:00").getTime();
 
     function updateTimer() {
         const now = new Date().getTime();
-        const diff = targetDate - now;
+        const diff = target - now;
+        
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
 
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-        document.getElementById("timer").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        document.getElementById("timer").innerText = `${d}d ${h}h ${m}m ${s}s`;
     }
 
     setInterval(updateTimer, 1000);
