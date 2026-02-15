@@ -3,360 +3,315 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Natana</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Natan | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #7B68EE; /* MediumSlateBlue */
-            --secondary-color: #6A5ACD; /* SlateBlue */
-            --text-color: #ecf0f1;
-            --background-dark: #1a1a2e;
-            --card-background: rgba(255, 255, 255, 0.08);
-            --card-border: rgba(255, 255, 255, 0.15);
-            --glow-color: #8A2BE2; /* BlueViolet */
+            --blue: #00d4ff;
+            --green: #00ff88;
+            --bg-dark: #020b14;
+            --card-bg: rgba(0, 20, 40, 0.8);
         }
 
-        body {
-            font-family: 'Montserrat', sans-serif;
+        body, html {
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: var(--background-dark);
-            overflow: hidden; /* For particle effect */
-            color: var(--text-color);
-            position: relative;
-        }
-
-        /* Particle Background */
-        .particle {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            pointer-events: none;
-            animation: float 15s infinite ease-in-out;
-            opacity: 0;
-            transform: scale(0);
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(0); opacity: 0; }
-            20% { opacity: 1; transform: scale(1); }
-            80% { opacity: 1; }
-            100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
-        }
-
-        .profile-card {
-            background: var(--card-background);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--card-border);
-            border-radius: 25px;
-            padding: 40px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            max-width: 450px;
-            width: 90%;
-            position: relative;
-            z-index: 10;
-            animation: cardAppear 1s ease-out forwards;
-        }
-
-        @keyframes cardAppear {
-            from { opacity: 0; transform: translateY(50px) scale(0.9); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        .profile-pic-container {
-            width: 140px;
-            height: 140px;
-            background: linear-gradient(45deg, var(--primary-color), var(--glow-color));
-            border-radius: 50%;
-            margin: -80px auto 25px; /* Pulls it up a bit */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 60px;
+            background-color: var(--bg-dark);
             color: white;
-            box-shadow: 0 0 25px var(--glow-color);
-            border: 5px solid var(--background-dark);
-            animation: pulse 2s infinite alternate;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
         }
-        
-        @keyframes pulse {
-            from { transform: scale(1); box-shadow: 0 0 15px var(--glow-color), 0 0 0 rgba(138, 43, 226, 0.4); }
-            to { transform: scale(1.05); box-shadow: 0 0 30px var(--glow-color), 0 0 10px rgba(138, 43, 226, 0.8); }
+
+        /* Canvas Background */
+        #bgCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        /* Profile Section */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--blue);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .profile-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid var(--green);
+            box-shadow: 0 0 15px var(--green);
+            font-size: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 255, 136, 0.1);
         }
 
         h1 {
-            font-size: 2.8em;
-            margin-bottom: 5px;
-            color: var(--primary-color);
-            text-shadow: 0 0 10px rgba(123, 104, 238, 0.5);
-        }
-
-        .nickname {
-            font-size: 1.1em;
-            color: var(--secondary-color);
-            margin-bottom: 30px;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .info-item {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 15px 20px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 1.1em;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: transform 0.3s ease, background 0.3s ease;
-        }
-
-        .info-item:hover {
-            transform: translateY(-5px);
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .info-item i {
-            margin-right: 15px;
-            color: var(--primary-color);
-            font-size: 1.3em;
-            width: 25px;
-            text-align: center;
-        }
-
-        .countdown-timer {
-            font-size: 1.6em;
-            font-weight: 700;
-            background: linear-gradient(45deg, var(--primary-color), var(--glow-color));
+            font-family: 'Orbitron', sans-serif;
+            margin: 10px 0;
+            background: linear-gradient(90deg, var(--blue), var(--green));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-left: auto;
+            font-size: 3em;
         }
 
-        .discord-button {
-            background-color: #5865F2; /* Discord blue */
-            color: white;
-            padding: 15px 25px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1em;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 30px;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        /* Status & Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 3px solid var(--blue);
+            transition: 0.3s;
+            text-align: left;
+        }
+
+        .info-box:hover {
+            background: rgba(0, 212, 255, 0.1);
+            transform: scale(1.02);
+        }
+
+        /* Sections Titles */
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--green);
+            border-bottom: 2px solid var(--green);
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        /* Works Section */
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .work-card {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: 0.4s;
+        }
+
+        .work-card:hover {
+            border-color: var(--green);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+            transform: translateY(-10px);
+        }
+
+        .work-img {
+            height: 150px;
+            background: linear-gradient(45deg, #001a33, #00331a);
             display: flex;
-            align-items: center;
             justify-content: center;
-            width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
+            align-items: center;
+            font-size: 40px;
         }
 
-        .discord-button i {
-            margin-right: 10px;
+        .work-info {
+            padding: 15px;
         }
 
-        .discord-button:hover {
-            background-color: #4a54c0;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(88, 101, 242, 0.4);
-        }
-        
-        .discord-button:active {
-            transform: translateY(0);
-            box-shadow: 0 4px 10px rgba(88, 101, 242, 0.3);
+        /* Countdown */
+        .timer {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5em;
+            color: var(--blue);
+            text-shadow: 0 0 10px var(--blue);
         }
 
-        .toast-message {
-            visibility: hidden;
-            min-width: 250px;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            border-radius: 5px;
-            padding: 16px;
-            position: fixed;
-            z-index: 100;
-            left: 50%;
-            bottom: 30px;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s, visibility 0.3s;
+        /* Discord Button */
+        .btn-discord {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: linear-gradient(90deg, #5865F2, var(--blue));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            border: none;
         }
 
-        .toast-message.show {
-            visibility: visible;
-            opacity: 1;
+        .btn-discord:hover {
+            box-shadow: 0 0 20px #5865F2;
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
 
-    <div id="particles-container"></div>
+<canvas id="bgCanvas"></canvas>
 
-    <div class="profile-card">
-        <div class="profile-pic-container">
-            🌊
+<div class="container">
+    <div class="glass-card">
+        <div class="profile-header">
+            <div class="profile-pic">🌊</div>
+            <h1>NATAN</h1>
+            <p style="font-size: 1.2em; letter-spacing: 2px;">DANIEL | DEVELOPER & ATHLETE</p>
         </div>
-        <h1 id="main-name">Natan</h1>
-        <div class="nickname" id="sub-name">(Daniel)</div>
 
         <div class="info-grid">
-            <div class="info-item">
-                <i class="fas fa-hand-peace"></i>
-                <span id="v-mood">Nastrój: Chill & Relax</span>
+            <div class="info-box">
+                <i class="fas fa-ghost" style="color: var(--blue);"></i> <b>Mood:</b> Chill & Focus
             </div>
-            <div class="info-item">
-                <i class="fas fa-gamepad"></i>
-                <span id="v-status">Status: Online</span>
+            <div class="info-box">
+                <i class="fas fa-location-arrow" style="color: var(--green);"></i> <b>Status:</b> Building things
             </div>
-            <div class="info-item">
-                <i class="fas fa-swimmer"></i>
-                <span id="v-hobbies">Hobby: Pływanie & Siatkówka</span>
-            </div>
-            <div class="info-item">
-                <i class="fas fa-paw"></i>
-                <span id="v-animals">Zwierzęta: Kocham je!</span>
-            </div>
-            <div class="info-item">
-                <i class="fas fa-headset"></i>
-                <span id="v-gear">Sprzęt: Słuchawki ON</span>
-            </div>
-            <div class="info-item">
-                <i class="fas fa-birthday-cake"></i>
-                <span id="t-levelup">Urodziny za:</span>
-                <span class="countdown-timer" id="timer">00d 00h 00m 00s</span>
+            <div class="info-box">
+                <i class="fas fa-birthday-cake" style="color: var(--blue);"></i> <b>Level Up za:</b><br>
+                <span id="timer" class="timer">-- : -- : --</span>
             </div>
         </div>
-
-        <button class="discord-button" onclick="copyDiscordLink()">
-            <i class="fab fa-discord"></i>
-            <span id="discord-button-text">Dołącz do Discorda!</span>
+        
+        <button class="btn-discord" onclick="window.open('https://discord.gg/BxBzuuGrj2', '_blank')">
+            <i class="fab fa-discord"></i> DOŁĄCZ DO DISCORDA
         </button>
     </div>
 
-    <div id="toast" class="toast-message">Link skopiowany!</div>
+    <div class="glass-card">
+        <h2><i class="fas fa-user"></i> Czym się zajmuję?</h2>
+        <div class="info-grid">
+            <div class="info-box">
+                <h3>🏊‍♂️ Sport</h3>
+                <p>Pasjonat pływania i siatkówki. Sport uczy mnie dyscypliny i dążenia do celu.</p>
+            </div>
+            <div class="info-box">
+                <h3>💻 Technology</h3>
+                <p>Tworzę projekty na Discorda, bawię się kodem i projektuję nowoczesne interfejsy.</p>
+            </div>
+        </div>
+    </div>
 
-    <script>
-        // --- Tłumaczenia ---
-        const translations = {
-            pl: {
-                name: "Natan",
-                mood: "Nastrój: Chill & Relax",
-                status: "Status: Online",
-                hobbies: "Hobby: Pływanie & Siatkówka",
-                animals: "Zwierzęta: Kocham je!",
-                gear: "Sprzęt: Słuchawki ON",
-                levelup_prefix: "Urodziny za:",
-                discord_button: "Dołącz do Discorda!",
-                copy_success: "Link skopiowany!"
-            },
-            en: {
-                name: "Nathan",
-                mood: "Mood: Chill & Relax",
-                status: "Status: Online",
-                hobbies: "Hobby: Swimming & Volleyball",
-                animals: "Animals: Love them!",
-                gear: "Gear: Headset ON",
-                levelup_prefix: "Birthday in:",
-                discord_button: "Join Discord!",
-                copy_success: "Link copied!"
-            }
-        };
+    <div class="glass-card">
+        <h2><i class="fas fa-code-branch"></i> Moje Prace</h2>
+        <div class="works-grid">
+            <div class="work-card">
+                <div class="work-img">🤖</div>
+                <div class="work-info">
+                    <h4>Discord Bot</h4>
+                    <p>Zaawansowany bot moderacyjny i rozrywkowy dla społeczności.</p>
+                </div>
+            </div>
+            <div class="work-card">
+                <div class="work-img">🎨</div>
+                <div class="work-info">
+                    <h4>UI Design</h4>
+                    <p>Projektowanie minimalistycznych i ciemnych motywów graficznych.</p>
+                </div>
+            </div>
+            <div class="work-card">
+                <div class="work-img">🎮</div>
+                <div class="work-info">
+                    <h4>Serwer Społeczności</h4>
+                    <p>Zarządzanie i budowanie aktywnych grup na Discordzie.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-        const userLang = navigator.language.startsWith('pl') ? 'pl' : 'en';
-        const t = translations[userLang];
+<script>
+    // --- MATRIX BACKGROUND EFFECT ---
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
 
-        // --- Aplikowanie tekstów ---
-        document.getElementById('main-name').innerText = t.name;
-        document.getElementById('v-mood').innerText = t.mood;
-        document.getElementById('v-status').innerText = t.status;
-        document.getElementById('v-hobbies').innerText = t.hobbies;
-        document.getElementById('v-animals').innerText = t.animals;
-        document.getElementById('v-gear').innerText = t.gear;
-        document.getElementById('t-levelup').innerText = t.levelup_prefix;
-        document.getElementById('discord-button-text').innerText = t.discord_button;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-        // --- Odliczanie do 13 kwietnia 2026 ---
-        const target = new Date("April 13, 2026 00:00:00").getTime();
+    const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const nums = '0123456789';
+    const alphabet = latin + nums;
 
-        function updateTimer() {
-            const now = new Date().getTime();
-            const diff = target - now;
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+
+    const rainDrops = [];
+
+    for( let x = 0; x < columns; x++ ) {
+        rainDrops[x] = 1;
+    }
+
+    const draw = () => {
+        ctx.fillStyle = 'rgba(2, 11, 20, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.font = fontSize + 'px Orbitron';
+
+        for(let i = 0; i < rainDrops.length; i++) {
+            const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
             
-            if (diff < 0) {
-                document.getElementById("timer").innerText = "🎉 Already happened!";
-                return;
+            // Alternating colors blue and green
+            ctx.fillStyle = i % 2 === 0 ? '#00d4ff' : '#00ff88';
+            
+            ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+            if(rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975){
+                rainDrops[i] = 0;
             }
-
-            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-            document.getElementById("timer").innerText = 
-                `${String(d).padStart(2, '0')}d ${String(h).padStart(2, '0')}h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
+            rainDrops[i]++;
         }
+    };
 
-        setInterval(updateTimer, 1000);
-        updateTimer();
+    setInterval(draw, 30);
 
-        // --- Kopiowanie linku Discord ---
-        function copyDiscordLink() {
-            const discordLink = "https://discord.gg/BxBzuuGrj2";
-            navigator.clipboard.writeText(discordLink).then(() => {
-                showToast(t.copy_success);
-            }).catch(err => {
-                console.error('Błąd kopiowania linku: ', err);
-                alert('Nie udało się skopiować linku. Spróbuj ręcznie: ' + discordLink);
-            });
-        }
+    // --- COUNTDOWN TIMER ---
+    const targetDate = new Date("April 13, 2026 00:00:00").getTime();
 
-        function showToast(message) {
-            const toast = document.getElementById("toast");
-            toast.innerText = message;
-            toast.classList.add("show");
-            setTimeout(() => {
-                toast.classList.remove("show");
-            }, 3000);
-        }
+    function updateTimer() {
+        const now = new Date().getTime();
+        const diff = targetDate - now;
 
-        // --- Animowane tło (cząsteczki) ---
-        const particlesContainer = document.getElementById('particles-container');
-        const numParticles = 20;
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
 
-        for (let i = 0; i < numParticles; i++) {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            particlesContainer.appendChild(particle);
+        document.getElementById("timer").innerText = `${d}d ${h}h ${m}m ${s}s`;
+    }
 
-            const size = Math.random() * 20 + 10; // 10-30px
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.left = `${Math.random() * 100}vw`;
-            particle.style.top = `${Math.random() * 100}vh`;
+    setInterval(updateTimer, 1000);
+    updateTimer();
 
-            // Random start delay for particles
-            particle.style.animationDelay = `${Math.random() * 10}s`;
-            // Random duration
-            particle.style.animationDuration = `${Math.random() * 15 + 10}s`;
-
-            // Random end position for floating
-            particle.style.setProperty('--x', `${(Math.random() - 0.5) * 200}px`);
-            particle.style.setProperty('--y', `${(Math.random() - 0.5) * 200}px`);
-        }
-    </script>
+    // Window Resize fix
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+</script>
 
 </body>
 </html>
